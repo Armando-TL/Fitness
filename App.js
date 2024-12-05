@@ -2,6 +2,7 @@ import React from "react";
 import {StatusBar} from 'expo-status-bar';
 import {Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 
+
 function iniciarSession() {
     return undefined;
 }
@@ -35,7 +36,7 @@ export default function App() {
                     value={password}
                     placeholder='Contraseña'
                     placeholderTextColor='#515251'
-                    keyboardType='visible-password'
+                    keyboardType='password'
                     secureTextEntry={true}
                     autoCorrect={false}/>
                 <TouchableOpacity
@@ -49,7 +50,7 @@ export default function App() {
                     <View style={{flex: 1, height: 2, backgroundColor: '#313131'}} />
                 </View>
                 <TouchableOpacity>
-                    <Image source={require('./assets/loginGoogle.svg')} style={styles.image} />
+                    <Image source={require('./assets/loginGoogle.png')} style={styles.image} />
                 </TouchableOpacity>
             </View>
 
