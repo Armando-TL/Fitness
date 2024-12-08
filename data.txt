@@ -1,0 +1,5 @@
+key production android: 7D:4C:9C:C7:EB:6E:BA:C3:76:44:A3:62:B8:53:CD:C3:D1:08:28:A5
+androidClientId: 390079309516-m127jlhq6kpq8q1ehillpgicaabg89vb.apps.googleusercontent.com
+webClientId: 390079309516-9isa00bmlngp3a126s4j37apv9sdr32n.apps.googleusercontent.com
+
+Comando para ver key android: eas credentials

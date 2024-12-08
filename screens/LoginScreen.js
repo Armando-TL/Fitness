@@ -17,8 +17,8 @@ export default function App() {
     const [password, setPassword] = React.useState('');
     const [userInfo, setUserInfo] = React.useState(null);
     const [request, response, promptAsync] = Google.useAuthRequest({
-        androidClientId: "432007234672-oqqgs6gtbgti5v25m0vivg3h7k8v8f6d.apps.googleusercontent.com",
-        webClientId: "432007234672-23m7c0op9psh0t3g32non3okm8a5u4fe.apps.googleusercontent.com"
+        androidClientId: "390079309516-m127jlhq6kpq8q1ehillpgicaabg89vb.apps.googleusercontent.com",
+        webClientId: "390079309516-9isa00bmlngp3a126s4j37apv9sdr32n.apps.googleusercontent.com"
     });
 
     React.useEffect(() => {
