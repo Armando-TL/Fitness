@@ -1,24 +1,66 @@
 import React from "react";
 import {StatusBar} from 'expo-status-bar';
 import {Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
+//id web: 432007234672-23m7c0op9psh0t3g32non3okm8a5u4fe.apps.googleusercontent.com
+//id android: 432007234672-oqqgs6gtbgti5v25m0vivg3h7k8v8f6d.apps.googleusercontent.com
 
-function iniciarSession() {
-    return undefined;
-}
+//https://auth.expo.io/@armando3652/Fitness
+WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
 
     const [user, setUser] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [userInfo, setUserInfo] = React.useState(null);
+    const [request, response, promptAsync] = Google.useAuthRequest({
+        androidClientId: "432007234672-oqqgs6gtbgti5v25m0vivg3h7k8v8f6d.apps.googleusercontent.com",
+        webClientId: "432007234672-23m7c0op9psh0t3g32non3okm8a5u4fe.apps.googleusercontent.com"
+    });
 
+    React.useEffect(() => {
+            iniciarSession();
+    }, [response]);
 
-    let empty = user.trim().length > 5 && password.trim().length > 7;
+    async function iniciarSession() {
+        const user = await getLocalUser();
+        if (!user) {
+            if(response?.type === "success") {
+                getUserInfo(response.authentication.accessToken);
+            }
+        }else {
+            setUserInfo(user);
+        }
+    }
+
+    const getLocalUser = async () => {
+        const data = await AsyncStorage.getItem('@user');
+        if (!data) null;
+        return JSON.parse(data);
+    }
+
+    const getUserInfo = async (token) => {
+        if (!token) return null;
+        try {
+            const response = await fetch("https://www.googleapis.com/userinfo/v2/me",
+                {headers: {Authorization: 'Bearer ' + token}}
+            );
+            const user = await response.json();
+            await AsyncStorage.setItem("@user", JSON.stringify(user));
+            setUserInfo(user);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.title}>
-                    Iniciar sesion
+                    Iniciar sesión
                 </Text>
             </View>
             <View style={{alignItems: 'center'}}>
@@ -41,16 +83,22 @@ export default function App() {
                     autoCorrect={false}/>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => {Alert.alert('Go')}}>
+                    onPress={() => {
+                        Alert.alert('Go')
+                    }}>
                     <Text style={{color: 'black', fontWeight: 'bold'}}>Iniciar sesion</Text>
                 </TouchableOpacity>
                 <View style={styles.other}>
-                    <View style={{flex: 1, height: 2, backgroundColor: '#313131'}} />
-                    <Text style={{witdh: 50,color: 'white', padding: 5}}>O</Text>
-                    <View style={{flex: 1, height: 2, backgroundColor: '#313131'}} />
+                    <View style={{flex: 1, height: 2, backgroundColor: '#313131'}}/>
+                    <Text style={{witdh: 50, color: 'white', padding: 5}}>O</Text>
+                    <View style={{flex: 1, height: 2, backgroundColor: '#313131'}}/>
                 </View>
-                <TouchableOpacity>
-                    <Image source={require('./assets/loginGoogle.png')} style={styles.image} />
+                <TouchableOpacity
+                    disabled={!request}
+                    onPress={() => {
+                        promptAsync();
+                    }}>
+                    <Image source={require('./assets/loginGoogle.png')} style={styles.image}/>
                 </TouchableOpacity>
             </View>
 
@@ -74,6 +122,7 @@ const styles = StyleSheet.create({
         margin: 5,
         color: '#fff',
         padding: 8,
+        paddingLeft: 10,
         borderRadius: 10,
         elevation: 5,
         shadowOpacity: 0.5,
@@ -107,6 +156,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     image: {
+        marginTop: 40,
         width: 189,
         height: 40,
     }

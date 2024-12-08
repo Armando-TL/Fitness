@@ -13,7 +13,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.armando3652.Fitness"
     },
     "android": {
       "adaptiveIcon": {
@@ -29,6 +30,7 @@
       "eas": {
         "projectId": "ba350583-1b2a-4ece-8ec7-c17aa05ac140"
       }
-    }
+    },
+    "scheme": "Fitness"
   }
 }
