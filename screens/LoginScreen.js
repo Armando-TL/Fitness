@@ -5,10 +5,6 @@ import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-//id web: 432007234672-23m7c0op9psh0t3g32non3okm8a5u4fe.apps.googleusercontent.com
-//id android: 432007234672-oqqgs6gtbgti5v25m0vivg3h7k8v8f6d.apps.googleusercontent.com
-
-//https://auth.expo.io/@armando3652/Fitness
 WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {

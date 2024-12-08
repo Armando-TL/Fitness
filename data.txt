@@ -3,3 +3,5 @@ androidClientId: 390079309516-m127jlhq6kpq8q1ehillpgicaabg89vb.apps.googleuserco
 webClientId: 390079309516-9isa00bmlngp3a126s4j37apv9sdr32n.apps.googleusercontent.com
 
 Comando para ver key android: eas credentials
+Comando para generar apk: eas build -p android --profile preview
+Ejecutar ngrok: ngrok http --url=sound-musical-seagull.ngrok-free.app 8081
