@@ -7,3 +7,7 @@ export default function inicio() {
         <Navigation/>
     );
 }
+
+const styles = StyleSheet.create({
+
+});
